@@ -1,0 +1,35 @@
+<%- model_class = User -%>
+
+
+<section id="profile">
+  <div style="height: 150px;">
+      <div id="userImageDiv">
+          <%= image_tag @user.gravatar_url, :size => "200x200" %>
+      </div>
+      <div>
+        <h2 id="userInfoGlob"><%= @user.username %></h2>
+        <h5 id="userInfoMail"><i class="icon-envelope" style="vertical-align: middle"></i> <%= @user.email %></h5>
+        <div id="userConfig" class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle btn-link" href="#"><i class="icon-cog" style="vertical-align: middle"></i></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Show written posts", user_posts_path(@user), :class => "btn-link" %>
+            <li><%= link_to "Settings", edit_user_path(@user) %></li>
+            <li class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+  <div style="padding: 10px;">
+  <h2>Listing <%= @user.username %>'s   posts</h2>
+    <% @user.posts.each do |post| %>
+      <h4><%= link_to post.body, user_post_path(@user, post), :class => "btn-link" %>
+    <% end %>
+  </div>
+    <br/>
+</section>
+<br/>
+
+<%= button_to 'Edit', edit_user_path(@user), method: :get, :class => "btn btn-primary" %>
+<%= button_to 'Back', users_path, method: :get, :class => "btn btn-primary"%>
+<%= button_to 'Write post', new_user_post_path(@user), method: :get, :class => "btn btn-primary"%>

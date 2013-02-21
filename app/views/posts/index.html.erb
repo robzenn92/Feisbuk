@@ -1,0 +1,28 @@
+<% if notice%><p class="alert alert-success"><%= notice %></p><% end %>
+<% if flash[:error] %><p class="alert alert-error"><%= flash[:error] %></p><% end %>
+
+<h1>Listing <%= @user.username %>'s  posts</h1>
+
+<table class="table table-hover table-bordered">
+  <tr>
+    <th>Id</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @user.posts.each do |post| %>
+  <tr>
+    <td><%= post.id %></td>
+    <td><%= raw truncate( post.body, :length => 250, :omission => (link_to ' ..Continued', user_post_path(post.user_id, post), :class => "btn-link" ) ) %></td>
+    <td><%= link_to raw('<i class="icon-home glyph"></i>'), user_post_path(post.user_id, post), :class => "btn btn-success",:title => "Show" %></td>
+    <td><%= link_to raw('<i class="icon-pencil glyph"></i>'), edit_user_post_path(post.user_id, post), :class => "btn btn-primary",:title => "Edit" %></td>
+    <td><%= link_to raw('<i class="icon-trash glyph"></i>'), user_post_path(post.user_id, post), :class => "btn btn-danger",:title => "Delete", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= button_to 'New Post', new_user_post_path, method: :get, :class => "btn btn-primary"%>

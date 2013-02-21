@@ -1,0 +1,25 @@
+<%= form_for([@user,@post]) do |f| %>
+  <% if @post.errors.any? %>
+    <div class="alert alert-error">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="singlePost">
+    <%= f.label :body %><br />
+    <%= f.text_area :body, :class => "postBody" %>
+    <div class="datetimeHidden">
+    <%= f.label :created_at %><br />
+    <%= f.datetime_select :created_at %>
+    </div>
+    <div class="actions">
+      <%= f.submit :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
